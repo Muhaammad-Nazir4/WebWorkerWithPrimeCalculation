@@ -1,0 +1,41 @@
+{
+  "name": "webworker-1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "webpack": "webpack",
+    "dev": "webpack serve --open",
+    "start": "npm run dev",
+    "publish": "git push --follow-tags && node scripts/ghPages.js",
+    "bump:major": "npm version major",
+    "postbump:major": "npm run publish",
+    "bump:minor": "npm version minor",
+    "postbump:minor": "npm run publish",
+    "bump:patch": "npm version patch",
+    "postbump:patch": "npm run publish"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "antd": "^4.10.0",
+    "crypto-js": "^4.0.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
+    "@babel/preset-react": "^7.12.10",
+    "babel-loader": "^8.2.2",
+    "css-loader": "^5.0.1",
+    "gh-pages": "^3.1.0",
+    "style-loader": "^2.0.0",
+    "webpack": "^5.90.1",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^3.11.1",
+    "worker-loader": "^3.0.7"
+  }
+}
