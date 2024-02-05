@@ -11,10 +11,10 @@ This project is a React application that fetches population data from the Data U
 ### **Instructions to Run the Project Locally**
 
 1. Clone the repository:  
-   `git clone https://github.com/Muhaammad-Nazir4/WebWorkerWithPrimeCalculation`
+   `git clone https://github.com/Muhaammad-Nazir4/WebWorkers`
 
 2. Navigate to the project directory:  
-   `cd web-worker-prime-calculation`
+   `cd WebWorkers`
 
 3. Open Project in a web browser:  
    Run `npm start` in the project directory in the terminal.
