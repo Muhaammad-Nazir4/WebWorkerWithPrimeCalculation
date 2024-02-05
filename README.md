@@ -1,48 +1,55 @@
-# Web Worker Prime Number Calculation
 
-## Project Description
 
-This project demonstrates the effectiveness of web workers by tackling the computation of the 40,000th prime number—a task known to be time-consuming on most machines and programming languages.
+# **Project Documentation**
 
-## How to Run Locally
+### Brief Description of the Project
 
-1. **Clone the repository:**
+This project is a React application that fetches population data from the Data USA API and provides two sorting mechanisms for the data: one utilizing Web Workers for parallel processing and another without Web Workers. The goal is to compare the performance of sorting large datasets with and without Web Workers in a React application.
 
-   ```bash
-   git clone https://github.com/Muhaammad-Nazir4/WebWorkerWithPrimeCalculation
-2. **Navigate to the project directory:**
-   ```bash
-   cd web-worker-prime-calculation
-4. **Open Project in a web browser:**
-    Run "npm start" in the project directory in terminal.
-5. **Open the browser's developer tools and check the console for logs.**
-   Check logs for calculations with web workers and not webworkers.
-   
-## Performance Findings
-### Scenario 1: Web Worker
-- The web page remains responsive during the prime calculation script execution.
-- Demonstrates the effectiveness of web workers in preventing the main thread from becoming blocked.
-### Scenario 2: Main Thread
-- The page becomes unresponsive during script execution.
-- Illustrates potential performance issues when executing resource-intensive computations on the main thread.
-- 
-## Challenges Faced and Solutions
-### Synchronization
+---
 
-Ensuring proper synchronization between the main thread and the web worker was challenging. This was addressed by:
-- Carefully handling data exchange.
-- Using appropriate messaging techniques.
+### **Instructions to Run the Project Locally**
 
-### Debugging
+1. Clone the repository:  
+   `git clone https://github.com/Muhaammad-Nazir4/WebWorkerWithPrimeCalculation`
 
-Debugging code within a web worker environment can be challenging. The following approach facilitated effective debugging:
-- Leveraging browser developer tools.
-- Utilizing logging messages for better insight.
+2. Navigate to the project directory:  
+   `cd web-worker-prime-calculation`
 
-## References and Resources
-- Mozilla Developer Network (MDN) - Web Workers
-- Stack Overflow discussions on web worker best practices and common issues.
-## Conclusion
-The project underscores the importance of leveraging web workers for computationally intensive tasks to maintain a responsive user interface. 
-Offloading such tasks to dedicated worker threads enhances the overall user experience. 
-Challenges faced, such as synchronization and debugging, were overcome through careful implementation and debugging practices.
+3. Open Project in a web browser:  
+   Run `npm start` in the project directory in the terminal.
+
+4. Open the browser's developer tools and check the console for logs.  
+   Check logs for calculations with web workers and not web workers.
+
+The application will be accessible at [http://localhost:3000](http://localhost:3000) in your web browser.
+
+---
+
+### **Summary of Findings on Performance Improvements with Web Workers**
+
+The project demonstrates the use of Web Workers to perform sorting operations in parallel, which can potentially enhance performance when dealing with large datasets. By offloading the sorting task to a separate thread, Web Workers allow the main thread to remain responsive, providing a smoother user experience.
+
+---
+
+### **Challenges Faced and Overcoming Them**
+
+- **Web Worker Communication:** Communicating between the main thread and the Web Worker required careful handling. The `postMessage` and `onmessage` events were used to exchange data efficiently.
+
+- **Data Fetching:** Fetching data from the Data USA API introduced asynchronous operations. The `async/await` pattern was employed to handle these operations and ensure data availability before sorting.
+
+---
+
+### **References/Resources Used**
+
+- Data USA API: [https://datausa.io/](https://datausa.io/)
+- MDN Web Docs - Web Workers: [https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API)
+- React Documentation: [https://reactjs.org/docs/getting-started.html](https://reactjs.org/docs/getting-started.html)
+
+---
+
+### **Conclusion**
+
+Utilizing Web Workers for computationally intensive tasks, such as sorting large datasets, can lead to improved performance in web applications. The parallel processing capabilities of Web Workers allow for efficient multitasking without affecting the responsiveness of the main thread. However, it's essential to consider the specific use case and complexity of the task to determine the most suitable approach.
+
+By running the project locally and comparing the sorting times with and without Web Workers, users can observe firsthand the potential performance benefits and make informed decisions based on their application requirements.

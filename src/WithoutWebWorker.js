@@ -1,18 +1,7 @@
-import React, { useEffect } from "react";
-import { nthPrime } from "./utils/prime";
-import { LONG_TEXT } from "./Constants";
-
-export default function WithoutWebWorker() {
-  useEffect(() => {
-    setTimeout(() => {
-      console.log("::START::");
-      const t0 = performance.now();
-      nthPrime(40000);
-      const t1 = performance.now();
-      const diff = Math.round(t1 - t0);
-      console.log("Time Taken Without Usage of WebWorker: " + diff);
-    }, 2000);
-  }, []);
-
-  return LONG_TEXT;
-}
+// src/SortWithoutWebWorker.js
+const sortWithoutWebWorker = (array) => {
+    return array.slice().sort((a, b) => a - b);
+  };
+  
+  export default sortWithoutWebWorker;
+  

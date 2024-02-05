@@ -1,64 +1,78 @@
-import React from "react";
-import "antd/dist/antd.css";
-import { Button, Layout, Typography, Divider } from "antd";
-const { Title } = Typography;
-const { Header, Footer, Content } = Layout;
+// src/App.js
+import React, { useState, useEffect } from 'react';
+import sortWithWebWorker from './WithWebWorker';
+import sortWithoutWebWorker from './WithoutWebWorker';
+import './App.css';
 
-import W_TH from "./WithWebWorker";
-import WO_TH from "./WithoutWebWorker";
+function App() {
+  const [data, setData] = useState([]);
+  const [timeWithWorker, setTimeWithWorker] = useState(null);
+  const [timeWithoutWorker, setTimeWithoutWorker] = useState(null);
 
-class App extends React.PureComponent {
-  state = {
-    UI: "",
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch('https://datausa.io/api/data?drilldowns=Nation&measures=Population');
+      const result = await response.json();
+      const populationData = result.data || [];
+      setData(populationData);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
   };
 
-  render() {
-    return (
-      <Layout
-        style={{
-          display: "flex",
-          height: "100vh",
-          minHeight: "100vh",
-        }}
-      >
-        <Header>
-          <Title style={{ color: "#fff", fontSize:'25px', textAlign:'center',paddingTop:'10px' }}>WebWorker Task</Title>
-        </Header>
-        <Content style={{ flex: 1, overflow: "scroll",  textAlign:'center' }}>
-          <div
-            style={{
-              position: "sticky",
-              background: "#fff",
-              padding: 8,
-              top: 0,
-            }}
-          >
-            <Button style={{marginTop:"10px"}}
-              type='primary'
-              onClick={() => {
-                this.setState({ UI: "THREADED" });
-              }}
-            >
-              With WebWorker
-            </Button>
-            &nbsp;&nbsp;
-            <Button style={{marginTop:"10px"}}
-            type='primary'
-              onClick={() => {
-                this.setState({ UI: "UN_THREADED" });
-              }}
-            >
-              Without WebWorker
-            </Button>
-          </div>
-          <div style={{ display: "flex", flex: 1, overflow: "scroll" }}>
-            {this.state.UI === "UN_THREADED" ? <WO_TH /> : null}
-            {this.state.UI === "THREADED" ? <W_TH /> : null}
-          </div>
-        </Content>
-      </Layout>
-    );
-  }
+  const handleSortWithWorker = () => {
+    const startTime = performance.now();
+
+    sortWithWebWorker(data, (sortedArray) => {
+      const endTime = performance.now();
+      setData(sortedArray.reverse()); // Reverse the sorted array for descending order
+      setTimeWithWorker(endTime - startTime);
+    });
+  };
+
+  const handleSortWithoutWorker = () => {
+    const startTime = performance.now();
+
+    const sortedArray = sortWithoutWebWorker(data).reverse(); // Reverse the sorted array for descending order
+
+    const endTime = performance.now();
+    setData(sortedArray);
+    setTimeWithoutWorker(endTime - startTime);
+  };
+
+  return (
+    <div className="container">
+      <div className="sidebar">
+        <h2 style={{color:'white'}}>WebWorkers</h2>
+        <button  onClick={handleSortWithWorker}>
+          Sort with Web Worker
+        </button>
+        <button onClick={handleSortWithoutWorker}>Sort without Web Worker</button>
+        <div style={{ color:'white'}}>
+          {timeWithWorker && <p style={{ color:'white'}}>Time with Web Worker: {timeWithWorker.toFixed(2)} milliseconds</p>}
+          {timeWithoutWorker && <p style={{ color:'white'}}>Time without Web Worker: {timeWithoutWorker.toFixed(2)} milliseconds</p>}
+        </div>
+      </div>
+      <div className="content">
+        <div className="card-container">
+          {data.map((entry, index) => (
+            <div className="card" key={index}>
+              <p style={{backgroundColor:'darkblue', color:'white'}}>Population: {entry.Population}</p>
+              <p>Nation ID: {entry['ID Nation']}</p>
+              <p>Nation: {entry.Nation}</p>
+              <p>Year ID: {entry['ID Year']}</p>
+              <p>Year: {entry.Year}</p>              
+              <p>Slug Nation: {entry['Slug Nation']}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default App;

@@ -1,0 +1,51 @@
+/* DataFetchingComponent.css */
+
+.data-container {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  h2 {
+    background-color: darkblue;
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+    color: white;
+  }
+  
+  label {
+    margin-right: 10px;
+    margin-left: 29%;
+  }
+  
+  select {   
+    margin-top: 1%;
+    padding: 10px;
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+  
+  .data-details {
+    margin-top: 20px;
+  }
+  
+  h3 {
+    color: #333;
+  }
+  
+  p {
+    line-height: 1.6;
+  }
+  
+  /* Responsive Styles for smaller screens */
+  @media (max-width: 600px) {
+    select {
+      width: 100%;
+      font-size: 14px;
+    }
+  }
+  
